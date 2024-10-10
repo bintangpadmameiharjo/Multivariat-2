@@ -1,0 +1,43 @@
+---
+title: "BAB 2 Data Multivariat dan Visualisasi Data"
+author: "David Stefanus Bona Sihite"
+format: html
+editor: visual
+---
+
+## Data Multivariat dan Visualisasi Data
+
+```{r}
+library("MVA")
+library(ggplot2)
+demo("Ch-Viz")
+```
+
+Data Multivariat yang digunakan adalah Dataset gempa di Indonesia yang diambil dari website Kaggle dan bersumber dari BMKG
+
+```{r}
+data_gempa <- read.csv("D:/tugas/Kuliah/Semester 5/Metode Multivariat/Data Multivariat/katalog_gempa.csv")
+data_gempa
+```
+
+Dataset Multivariat tersebut berisi variabel:
+1. Tanggal (tgl): Tanggal kejadian gempa
+2. Waktu (ot): Waktu kejadian gempa
+3. Latitude (lat): Koordinat garis lintang dari lokasi gempa
+4. Longitude (lon): Koordinat garis bujur dari lokasi gempa
+5. Kedalaman (depth): Kedalaman gempa dalam kilometer
+6. Magnitudo (mag): Kekuatan gempa pada skala Ritcher
+7. Remark: Keterangan mengenai lokasi atau wilayah gempa
+8. Strike1, Dip1, Rake1, Strike2, Dip2, Rake2: Informasi terkait parameter orientasi gempa
+
+```{r}
+ggplot(data_gempa, aes(x=depth, y=mag))+geom_point(color="blue",alpha=0.6)+labs(title="Scatter Plot Magnitudo vs Kedalaman Gempa", x="Kedalaman (km)", y="Magnitudo")+theme_minimal()
+```
+
+Scatter Plot Magnitudo vs Kedalaman Gempa: Plot ini menunjukan hubungan antara kedalaman gempa dan magnitudo
+
+```{r}
+ggplot(data_gempa, aes(x=lon, y=lat))+geom_point(aes(size=mag,color=depth), alpha=0.6)+scale_color_gradient(low="yellow", high="red")+labs(title="Lokasi Gempa Berdasarkan Koordinat", x="Longitude", y="Latitude", size="Magnitude", color="Kedalaman (km)")+theme_minimal()
+```
+
+Scatter Plot Lokasi Gempa: Lokasi Gempa di plot berdasarkan koordinat(latitude dan longitude), dengan ukuran titik menggambarkan magnitudo gempa dan warna menggambarkan kedalaman
